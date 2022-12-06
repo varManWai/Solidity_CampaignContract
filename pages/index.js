@@ -21,12 +21,7 @@ export default function Home({ campaigns }) {
 
   return (
     <div>
-      <link
-        rel="stylesheet"
-        href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
-      ></link>
       <h1>this is the root page!!!</h1>
-
       <Button floated="right" content="Create Campaign" icon="add circle" primary />
       <div>{renderCompaigns()}</div>
     </div>
