@@ -1,16 +1,22 @@
 import { useEffect } from "react";
 import factory from "../ethereum/factory";
 
+import { Card } from "semantic-ui-react";
+
 export default function Home({ campaigns }) {
+
+  const items = campaigns.map((address) => {
+    return {
+      header: address,
+      description: <a>View Campaign</a>,
+      fluid: true,
+    };
+  });
 
   return (
     <div>
       <h1>this is the root page!!!</h1>
-      <div>{campaigns.map(value => {
-        return (
-          <div key={value}>{value}</div>
-        )
-      })}</div>
+      <Card.Group items={items} />;
     </div>
   );
 }
