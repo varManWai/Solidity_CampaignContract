@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { Form, Button, Input, Message } from "semantic-ui-react";
 
 import factory from "../../ethereum/factory";
@@ -7,9 +7,12 @@ import web3 from "../../ethereum/web3";
 export default function CampaignNew() {
   const [minimumContribution, setMinimumContribution] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading,setLoading] = useState(false);
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
+    setLoading(true);
 
     try {
       const accounts = await web3.eth.getAccounts();
@@ -19,6 +22,9 @@ export default function CampaignNew() {
     } catch (err) {
       setErrorMessage(err.message);
     }
+    
+    setLoading(false);
+
   };
 
   return (
@@ -37,7 +43,7 @@ export default function CampaignNew() {
           />
         </Form.Field>
         <Message error header="Oops!" content={errorMessage} />
-        <Button primary>Create!</Button>
+        <Button loading={loading} primary>Create!</Button>
       </Form>
     </div>
   );
