@@ -4,27 +4,33 @@ import { Form, Button, Input, Message } from "semantic-ui-react";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
 
+import { useRouter } from "next/router";
+
 export default function CampaignNew() {
   const [minimumContribution, setMinimumContribution] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
     setLoading(true);
+    setErrorMessage("");
 
     try {
       const accounts = await web3.eth.getAccounts();
       await factory.methods.createCampaign(minimumContribution).send({
         from: accounts[0],
       });
+
+      router.push("/");
     } catch (err) {
       setErrorMessage(err.message);
     }
-    
-    setLoading(false);
 
+    setLoading(false);
   };
 
   return (
@@ -43,7 +49,9 @@ export default function CampaignNew() {
           />
         </Form.Field>
         <Message error header="Oops!" content={errorMessage} />
-        <Button loading={loading} primary>Create!</Button>
+        <Button loading={loading} primary>
+          Create!
+        </Button>
       </Form>
     </div>
   );
