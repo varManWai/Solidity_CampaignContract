@@ -3,13 +3,15 @@ import factory from "../ethereum/factory";
 
 import { Card, Button } from "semantic-ui-react";
 
+import Link from "next/link";
+
 export default function Home({ campaigns }) {
 
   const renderCompaigns = () => {
     const items = campaigns.map((address) => {
       return {
         header: address,
-        description: <a>View Campaign</a>,
+        description: (<Link href={`/campaigns/${address}`}>View Campaign</Link>),
         fluid: true,
       };
     });
@@ -22,7 +24,9 @@ export default function Home({ campaigns }) {
   return (
     <div>
       <h1>this is the root page!!!</h1>
-      <Button floated="right" content="Create Campaign" icon="add circle" primary />
+      <Link href="/campaigns/new">
+        <Button floated="right" content="Create Campaign" icon="add circle" primary />
+      </Link>
       <div>{renderCompaigns()}</div>
     </div>
   );
