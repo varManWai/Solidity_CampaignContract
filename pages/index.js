@@ -1,22 +1,34 @@
 import { useEffect } from "react";
 import factory from "../ethereum/factory";
 
-import { Card } from "semantic-ui-react";
+import { Card, Button } from "semantic-ui-react";
 
 export default function Home({ campaigns }) {
 
-  const items = campaigns.map((address) => {
-    return {
-      header: address,
-      description: <a>View Campaign</a>,
-      fluid: true,
-    };
-  });
+  const renderCompaigns = () => {
+    const items = campaigns.map((address) => {
+      return {
+        header: address,
+        description: <a>View Campaign</a>,
+        fluid: true,
+      };
+    });
+
+    return <Card.Group items={items} />;
+  }
+
+
 
   return (
     <div>
+      <link
+        rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
+      ></link>
       <h1>this is the root page!!!</h1>
-      <Card.Group items={items} />;
+
+      <Button floated="right" content="Create Campaign" icon="add circle" primary />
+      <div>{renderCompaigns()}</div>
     </div>
   );
 }
